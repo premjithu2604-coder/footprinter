@@ -107,6 +107,10 @@ export const quadTransform = <T extends z.infer<typeof base_quad_def>>(
   const horizontal_pitch = v.px ?? v.p
   const vertical_pitch = v.py ?? v.p
 
+  if (horizontal_pitch <= 0 || vertical_pitch <= 0) {
+    throw new Error("Quad footprint pitch must be greater than zero")
+  }
+
   if (!v.p && !v.pw && !v.pl && v.w) {
     // HACK: This is wayyy underspecified
     const approx_pin_size_of_side = horizontal_side_pin_count + 4
